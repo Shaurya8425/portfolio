@@ -1,15 +1,14 @@
 import { getBlogBySlug } from "../../../../lib/blogs";
+import type { JSX } from "react"; // ✅ fixes JSX not found
 
 export async function generateStaticParams() {
   const { getAllBlogs } = await import("../../../../lib/blogs");
-  return getAllBlogs().map((b) => ({ slug: b.slug }));
+  return getAllBlogs().map((b) => ({ slug: b.slug })) satisfies {
+    slug: string;
+  }[];
 }
 
-export default async function BlogPostPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+const BlogPostPage = async ({ params }: { params: { slug: string } }) => {
   const blog = await getBlogBySlug(params.slug);
 
   return (
@@ -24,4 +23,8 @@ export default async function BlogPostPage({
       />
     </div>
   );
-}
+};
+
+export default BlogPostPage satisfies (props: {
+  params: { slug: string };
+}) => Promise<JSX.Element>;
