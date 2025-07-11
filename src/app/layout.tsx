@@ -2,6 +2,7 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
+import { Toaster } from "sonner"; // ✅ import Toaster
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,6 +22,7 @@ export default function RootLayout({
         <Navbar />
         <main className='min-h-screen px-6 sm:px-12 pt-24'>{children}</main>
         <Footer />
+        <Toaster richColors position='top-center' /> {/* ✅ Add this line */}
       </body>
     </html>
   );
