@@ -10,11 +10,13 @@ import rehypePrism from "rehype-prism-plus";
 const blogDir = path.join(process.cwd(), "content/blogs");
 
 export function getAllBlogs() {
-  const files = fs.readdirSync(blogDir);
+  const files = fs.readdirSync(blogDir).filter((file) => file.endsWith(".md")); // ✅ ONLY markdown
 
   return files.map((filename) => {
-    const slug = filename.replace(".md", "");
+    const slug = filename.replace(/\.md$/, "");
+
     const fileContent = fs.readFileSync(path.join(blogDir, filename), "utf-8");
+
     const { data } = matter(fileContent);
 
     return {
@@ -28,7 +30,17 @@ export function getAllBlogs() {
 }
 
 export async function getBlogBySlug(slug: string) {
-  const file = fs.readFileSync(path.join(blogDir, `${slug}.md`), "utf-8");
+  if (!slug) {
+    throw new Error("Slug is undefined in getBlogBySlug");
+  }
+
+  const fullPath = path.join(blogDir, `${slug}.md`);
+
+  if (!fs.existsSync(fullPath)) {
+    throw new Error(`Blog file not found for slug: ${slug}`);
+  }
+
+  const file = fs.readFileSync(fullPath, "utf-8");
   const { data, content } = matter(file);
 
   const processedContent = await unified()
@@ -38,13 +50,11 @@ export async function getBlogBySlug(slug: string) {
     .use(rehypeStringify)
     .process(content);
 
-  const contentHtml = processedContent.toString();
-
   return {
     title: data.title,
     date: data.date,
     summary: data.summary,
     tags: data.tags || [],
-    contentHtml,
+    contentHtml: processedContent.toString(),
   };
 }

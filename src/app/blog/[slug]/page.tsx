@@ -1,15 +1,20 @@
-import { getBlogBySlug } from "../../../../lib/blogs";
-import type { JSX } from "react"; // ✅ fixes JSX not found
+import { getAllBlogs, getBlogBySlug } from "../../../../lib/blogs";
 
-export async function generateStaticParams() {
-  const { getAllBlogs } = await import("../../../../lib/blogs");
-  return getAllBlogs().map((b) => ({ slug: b.slug })) satisfies {
-    slug: string;
-  }[];
+export function generateStaticParams() {
+  const blogs = getAllBlogs();
+  return blogs.map((b) => ({
+    slug: b.slug,
+  }));
 }
 
-const BlogPostPage = async ({ params }: { params: { slug: string } }) => {
-  const blog = await getBlogBySlug(params.slug);
+export default async function BlogPostPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params; // ✅ IMPORTANT
+
+  const blog = await getBlogBySlug(slug);
 
   return (
     <div className='max-w-2xl mx-auto'>
@@ -23,8 +28,4 @@ const BlogPostPage = async ({ params }: { params: { slug: string } }) => {
       />
     </div>
   );
-};
-
-export default BlogPostPage satisfies (props: {
-  params: { slug: string };
-}) => Promise<JSX.Element>;
+}
