@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { HiMenu, HiX } from "react-icons/hi";
+import ThemeToggle from "./ThemeToggle";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -19,22 +20,23 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav className='fixed top-0 w-full bg-white border-b shadow z-50 px-6 sm:px-12 py-4'>
+    <nav className='fixed top-0 w-full border-b border-gray-200 dark:border-gray-800 bg-white/70 dark:bg-black/70 backdrop-blur-md z-50 px-6 sm:px-12 py-4 transition-colors duration-300'>
       <div className='flex justify-between items-center max-w-6xl mx-auto'>
         <Link href='/' className='text-xl font-bold text-primary'>
           shaurya.space
         </Link>
+        <ThemeToggle />
 
         {/* Desktop Nav */}
-        <div className='hidden md:flex gap-6'>
+        <div className='hidden md:flex gap-6 items-center'>
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className={`text-sm hover:text-primary ${
+              className={`text-sm transition-all duration-200 hover:text-primary hover:-translate-y-0.5 ${
                 pathname === link.href
                   ? "text-primary font-semibold"
-                  : "text-gray-600"
+                  : "text-gray-700 dark:text-gray-300"
               }`}
             >
               {link.name}
@@ -56,7 +58,7 @@ export default function Navbar() {
 
       {/* Mobile Nav */}
       {open && (
-        <div className='md:hidden flex flex-col gap-4 mt-4 px-6'>
+        <div className='md:hidden flex flex-col gap-4 mt-4 px-6 bg-white dark:bg-black py-4 border-gray-200 dark:border-gray-800'>
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -65,7 +67,7 @@ export default function Navbar() {
               className={`block text-sm hover:text-primary ${
                 pathname === link.href
                   ? "text-primary font-semibold"
-                  : "text-gray-600"
+                  : "text-gray-700 dark:text-gray-300"
               }`}
             >
               {link.name}

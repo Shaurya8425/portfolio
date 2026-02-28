@@ -1,7 +1,8 @@
-import React from "react";
+
 import ContributionGraph from "./ContributionGraph";
 import { getGitHubStats } from "../actions/getGitHubStats";
 
+/* component */
 const StatCard = ({
   title,
   value,
@@ -12,7 +13,7 @@ const StatCard = ({
   className?: string;
 }) => (
   <div
-    className={`card border border-border/40 rounded-xl p-4 w-full h-full transition-transform duration-200 hover:scale-105 ${className}`}
+    className={`card border border-border/40 rounded-xl p-4 w-full h-full transition-transform duration-200 hover:scale-102 ${className}`}
   >
     <div className='card-content'>
       <h3 className='text-lg font-semibold tracking-tight card-title text-muted-foreground'>
@@ -30,16 +31,16 @@ async function page() {
 
   const pickGithubStats = [
     {
-      title: "Total Public Repositories",
-      value: githubStats.public_repos,
-    },
-    {
       title: "Followers",
       value: githubStats.followers,
     },
     {
       title: "Following",
       value: githubStats.following,
+    },
+    {
+      title: "Total Public Repositories",
+      value: githubStats.public_repos,
     },
     {
       title: "Location",
@@ -50,8 +51,8 @@ async function page() {
     <>
       <ContributionGraph />
 
-      <div className='mb-8'>
-        <div className='grid grid-cols-1 gap-4 card-container md:grid-cols-3'>
+      <div className='mb-8 mt-2'>
+        <div className='grid grid-cols-1 gap-4 card-container md:grid-cols-2'>
           {pickGithubStats.map((card, index) => (
             <StatCard
               key={index}
