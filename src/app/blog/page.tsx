@@ -16,10 +16,10 @@ export default function BlogListPage() {
             >
               {blog.title}
             </Link>
-            <p className='text-sm text-gray-500'>
+            <p className='text-sm text-gray-500 dark:text-gray-400'>
               {new Date(blog.date).toLocaleDateString()}
             </p>
-            <p className='text-gray-700'>{blog.summary}</p>
+            <p className='text-gray-700 dark:text-gray-300'>{blog.summary}</p>
           </li>
         ))}
       </ul>

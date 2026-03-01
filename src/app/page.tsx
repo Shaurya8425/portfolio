@@ -17,7 +17,7 @@ export default function Home() {
       >
         Hey, I’m Shaurya 👋
       </motion.h1>
-      <p className='mt-6 text-lg md:text-xl text-gray-700 max-w-2xl mx-auto'>
+      <p className='mt-6 text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto'>
         Building real-world web apps with modern tech stack.
       </p>
       <div className='mt-8 flex justify-center gap-4'>

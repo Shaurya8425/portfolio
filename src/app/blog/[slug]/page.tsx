@@ -19,7 +19,7 @@ export default async function BlogPostPage({
   return (
     <div className='max-w-2xl mx-auto'>
       <h1 className='text-3xl font-bold text-primary mb-2'>{blog.title}</h1>
-      <p className='text-sm text-gray-500 mb-6'>
+      <p className='text-sm text-gray-500 dark:text-gray-400 mb-6'>
         {new Date(blog.date).toLocaleDateString()}
       </p>
       <div

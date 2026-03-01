@@ -44,7 +44,7 @@ export default function ContactPage() {
           name='name'
           value={form.name}
           onChange={handleChange}
-          placeholder='Your Name'
+          placeholder='Name'
           required
           className='w-full border px-4 py-2 rounded'
         />
@@ -53,7 +53,7 @@ export default function ContactPage() {
           name='email'
           value={form.email}
           onChange={handleChange}
-          placeholder='Your Email'
+          placeholder='Email'
           required
           className='w-full border px-4 py-2 rounded'
         />
@@ -81,7 +81,7 @@ export default function ContactPage() {
           target='_blank'
           rel='noopener noreferrer'
           aria-label='GitHub'
-          className='text-gray-600 hover:text-primary transition'
+          className='text-gray-600 dark:text-gray-400 hover:text-primary transition'
         >
           {/* GitHub SVG */}
           <svg
@@ -99,7 +99,7 @@ export default function ContactPage() {
           target='_blank'
           rel='noopener noreferrer'
           aria-label='LinkedIn'
-          className='text-gray-600 hover:text-primary transition'
+          className='text-gray-600 dark:text-gray-400 hover:text-primary transition'
         >
           {/* LinkedIn SVG */}
           <svg
@@ -117,7 +117,7 @@ export default function ContactPage() {
           target='_blank'
           rel='noopener noreferrer'
           aria-label='Twitter/X'
-          className='text-gray-600 hover:text-primary transition'
+          className='text-gray-600 dark:text-gray-400 hover:text-primary transition'
         >
           {/* X SVG */}
           <svg
@@ -132,7 +132,7 @@ export default function ContactPage() {
 
         <a
           href='mailto:shaurya.y321@gmail.com'
-          className='text-gray-600 hover:text-primary transition'
+          className='text-gray-600 dark:text-gray-400 hover:text-primary transition'
           aria-label='Email'
         >
           {/* Email SVG */}

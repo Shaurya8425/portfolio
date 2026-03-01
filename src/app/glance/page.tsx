@@ -15,7 +15,7 @@ const StatCard = ({
   <div
     className={`card border border-border/40 rounded-xl p-4 w-full h-full transition-transform duration-200 hover:scale-102 ${className}`}
   >
-    <div className='card-content'>
+    <div className='card-content flex flex-col justify-between'>
       <h3 className='text-lg font-semibold tracking-tight card-title text-muted-foreground'>
         {title}
       </h3>
