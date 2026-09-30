@@ -1,8 +1,11 @@
 import { NextResponse } from "next/server";
-import { siteConfig } from "../../../../../config/site";
+import { getGitHubContributions } from "../../../actions/getGitHubContributions";
 
-export async function GET() {
-  const response = await fetch(`https://github-contributions-api.jogruber.de/v4/${siteConfig.links.githubUsername}?y=last`, { next: { revalidate: 3600 } });
-  if (!response.ok) return NextResponse.json({ message: "Unable to load GitHub contributions." }, { status: response.status });
-  return NextResponse.json(await response.json());
+export async function GET(request: Request) {
+  try {
+    const forceRefresh = new URL(request.url).searchParams.get("fresh") === "1";
+    return NextResponse.json({ contributions: await getGitHubContributions(forceRefresh) });
+  } catch {
+    return NextResponse.json({ message: "Unable to load GitHub contributions." }, { status: 502 });
+  }
 }

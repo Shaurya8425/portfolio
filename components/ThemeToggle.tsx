@@ -9,7 +9,9 @@ export default function ThemeToggle() {
 
   useEffect(() => setMounted(true), []);
 
-  if (!mounted) return null; // prevents hydration mismatch
+  if (!mounted) {
+    return <span aria-hidden='true' className='ml-2 inline-block h-9 w-[76px]' />;
+  }
 
   const isDark = resolvedTheme === "dark";
 

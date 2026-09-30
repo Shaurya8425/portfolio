@@ -2,10 +2,11 @@
 
 import { siteConfig } from "../../../config/site";
 
-export async function getGitHubStats() {
+export async function getGitHubStats(forceRefresh = false) {
   try {
     const response = await fetch(
       `https://api.github.com/users/${siteConfig.links.githubUsername}`,
+      forceRefresh ? { cache: "no-store" } : { next: { revalidate: 3600 } },
     );
     if (!response.ok) throw new Error(`GitHub profile request failed: ${response.status}`);
     const data = await response.json();
