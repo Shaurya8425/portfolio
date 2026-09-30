@@ -7,6 +7,7 @@ export async function getGitHubStats() {
     const response = await fetch(
       `https://api.github.com/users/${siteConfig.links.githubUsername}`,
     );
+    if (!response.ok) throw new Error(`GitHub profile request failed: ${response.status}`);
     const data = await response.json();
     return {
       name: data.name,

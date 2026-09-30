@@ -12,14 +12,12 @@ const StatCard = ({
   value: string | number;
   className?: string;
 }) => (
-  <div
-    className={`card border border-border/40 rounded-xl p-4 w-full h-full transition-transform duration-200 hover:scale-102 ${className}`}
-  >
+  <div className={`surface p-5 transition-transform duration-200 hover:-translate-y-1 ${className}`}>
     <div className='card-content flex flex-col justify-between'>
-      <h3 className='text-lg font-semibold tracking-tight card-title text-muted-foreground'>
+      <h3 className='text-sm font-bold uppercase tracking-wider text-[var(--muted)]'>
         {title}
       </h3>
-      <span className='text-5xl font-bold leading-tight tracking-tight card-value'>
+      <span className='text-4xl font-black leading-tight tracking-tight'>
         {value}
       </span>
     </div>
@@ -48,7 +46,8 @@ async function page() {
     },
   ];
   return (
-    <>
+    <div className='mx-auto max-w-6xl'>
+      <div className='mb-10'><p className='eyebrow mb-3'>Behind the scenes</p><h1 className='text-5xl font-black tracking-tight'>A quick glance.</h1><p className='mt-3 max-w-xl text-lg text-[var(--muted)]'>A live snapshot of my open-source activity and the numbers behind it.</p></div>
       <ContributionGraph />
 
       <div className='mb-8 mt-2'>
@@ -62,7 +61,7 @@ async function page() {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

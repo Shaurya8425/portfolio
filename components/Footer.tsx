@@ -1,7 +1,8 @@
 export default function Footer() {
   return (
-    <footer className='text-center text-sm text-gray-500 py-6 border-t mt-12'>
-      © {new Date().getFullYear()} Shaurya Yadav • All rights reserved.
+    <footer className='max-w-6xl mx-auto mt-24 border-t border-[var(--line)] px-2 py-8 text-sm text-[var(--muted)] flex justify-between'>
+      <span>© {new Date().getFullYear()} Shaurya Yadav</span>
+      <span>Built with curiosity + caffeine.</span>
     </footer>
   );
 }

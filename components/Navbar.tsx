@@ -20,29 +20,29 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav className='fixed top-0 w-full border-b border-gray-200 dark:border-gray-800 bg-white/70 dark:bg-black/70 backdrop-blur-md z-50 px-6 sm:px-12 py-4 transition-colors duration-300'>
-      <div className='flex justify-between items-center max-w-6xl mx-auto'>
-        <Link href='/' className='text-xl font-bold text-primary'>
-          shaurya.space
+    <nav className='fixed top-0 w-full z-50 px-5 sm:px-8 py-5'>
+      <div className='flex justify-between items-center max-w-6xl mx-auto surface px-4 py-3 shadow-sm backdrop-blur-md'>
+        <Link href='/' className='text-lg font-black tracking-tight'>
+          byshaurya<span className='text-primary'>.</span>com
         </Link>
-        <ThemeToggle />
 
         {/* Desktop Nav */}
-        <div className='hidden md:flex gap-6 items-center'>
+        <div className='hidden md:flex gap-1 items-center'>
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className={`text-sm transition-all duration-200 hover:text-primary hover:-translate-y-0.5 ${
+              className={`text-xs font-bold px-3 py-2 rounded-full transition-all duration-200 hover:bg-black/5 dark:hover:bg-white/10 ${
                 pathname === link.href
-                  ? "text-primary font-semibold"
-                  : "text-gray-700 dark:text-gray-300"
+                  ? "bg-primary text-black"
+                  : "text-[var(--foreground)]/75"
               }`}
             >
               {link.name}
             </Link>
           ))}
         </div>
+        <ThemeToggle />
 
         {/* Mobile Menu Button */}
         <div className='md:hidden'>
@@ -58,16 +58,16 @@ export default function Navbar() {
 
       {/* Mobile Nav */}
       {open && (
-        <div className='md:hidden flex flex-col gap-4 mt-4 px-6 bg-white dark:bg-black py-4 border-gray-200 dark:border-gray-800'>
+        <div className='md:hidden flex flex-col gap-2 mt-3 px-3 py-3 surface'>
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               onClick={() => setOpen(false)}
-              className={`block text-sm hover:text-primary ${
+              className={`block text-sm font-bold px-3 py-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/10 ${
                 pathname === link.href
                   ? "text-primary font-semibold"
-                  : "text-gray-700 dark:text-gray-300"
+                  : "text-[var(--foreground)]/75"
               }`}
             >
               {link.name}

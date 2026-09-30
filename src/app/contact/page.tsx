@@ -1,151 +1,41 @@
 "use client";
 
-import { useState } from "react";
-import emailjs from "@emailjs/browser";
+import { FormEvent, useState } from "react";
 import { toast } from "sonner";
+import { FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
+import { siteConfig } from "../../../config/site";
+
+const initialForm = { name: "", email: "", message: "" };
 
 export default function ContactPage() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [form, setForm] = useState(initialForm);
+  const [sending, setSending] = useState(false);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setSending(true);
     try {
-      await emailjs.send(
-        "service_9rhmowe", // Your EmailJS service ID
-        "template_8i3rosg", // Your template ID
-        {
-          name: form.name,
-          email: form.email,
-          message: form.message,
-        },
-        "wOcf7bpSksTH6BSax" // Your public key
-      );
-      toast.success("Message sent successfully!!");
-      setForm({ name: "", email: "", message: "" });
-    } catch (err) {
-      toast.error("Oops! Failed to send the message...");
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.message);
+      toast.success(result.message);
+      setForm(initialForm);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unable to send your message.";
+      toast.error(message);
+    } finally {
+      setSending(false);
     }
-  };
+  }
 
   return (
-    <div className='max-w-xl mx-auto'>
-      <h2 className='text-3xl font-bold text-primary mb-6 text-center'>
-        Contact Me
-      </h2>
-      <form className='space-y-4' onSubmit={handleSubmit}>
-        <input
-          type='text'
-          name='name'
-          value={form.name}
-          onChange={handleChange}
-          placeholder='Name'
-          required
-          className='w-full border px-4 py-2 rounded'
-        />
-        <input
-          type='email'
-          name='email'
-          value={form.email}
-          onChange={handleChange}
-          placeholder='Email'
-          required
-          className='w-full border px-4 py-2 rounded'
-        />
-        <textarea
-          name='message'
-          value={form.message}
-          onChange={handleChange}
-          placeholder='Your Message'
-          rows={5}
-          required
-          className='w-full border px-4 py-2 rounded'
-        />
-        <button
-          type='submit'
-          className='bg-primary text-white px-6 py-2 rounded hover:bg-primary-dark'
-        >
-          Send Message
-        </button>
-      </form>
-
-      {/* Social Links */}
-      <div className='mt-6 flex justify-center space-x-6'>
-        <a
-          href='https://github.com/Shaurya8425'
-          target='_blank'
-          rel='noopener noreferrer'
-          aria-label='GitHub'
-          className='text-gray-600 dark:text-gray-400 hover:text-primary transition'
-        >
-          {/* GitHub SVG */}
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            className='h-6 w-6'
-            fill='currentColor'
-            viewBox='0 0 24 24'
-          >
-            <path d='M12 .5C5.6.5.5 5.6.5 12c0 5.1 3.3 9.4 7.8 10.9.6.1.8-.3.8-.6v-2.2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.2-1.6-1.2-1.6-1-.7.1-.7.1-.7 1.1.1 1.6 1.1 1.6 1.1 1 .1.9 1.5 1.5 1.8.2.5.8.4 1.3.4.4-.2.6-.7.6-1.2V18c-2.6.6-4.7-1.3-4.7-4.4 0-1 .4-2 1.1-2.8-.2-.5-.5-1.4.1-2.8 0 0 .9-.3 2.9 1.1a10.1 10.1 0 0 1 5.3 0c2-.9 2.9-1.1 2.9-1.1.6 1.4.3 2.3.1 2.8.7.8 1.1 1.8 1.1 2.8 0 3.1-2 5-4.7 4.4v2c0 .4.2.9.8.6A10.8 10.8 0 0 0 23.5 12c0-6.4-5.1-11.5-11.5-11.5z' />
-          </svg>
-        </a>
-
-        <a
-          href='https://www.linkedin.com/in/shaurya-yadav-57a96722a/'
-          target='_blank'
-          rel='noopener noreferrer'
-          aria-label='LinkedIn'
-          className='text-gray-600 dark:text-gray-400 hover:text-primary transition'
-        >
-          {/* LinkedIn SVG */}
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            className='h-6 w-6'
-            fill='currentColor'
-            viewBox='0 0 24 24'
-          >
-            <path d='M4.98 3.5a2.5 2.5 0 1 0 0 5.001 2.5 2.5 0 0 0 0-5.002zM2.5 8.75h5v13.5h-5v-13.5zM9.5 8.75h4.75v1.75h.06c.66-1.25 2.28-2.06 4.2-2.06 4.5 0 5.32 2.96 5.32 6.81v7h-5v-6.2c0-1.48-.03-3.39-2.06-3.39-2.06 0-2.38 1.6-2.38 3.28v6.31h-5v-13.5z' />
-          </svg>
-        </a>
-
-        <a
-          href='https://x.com/Shaurya7086'
-          target='_blank'
-          rel='noopener noreferrer'
-          aria-label='Twitter/X'
-          className='text-gray-600 dark:text-gray-400 hover:text-primary transition'
-        >
-          {/* X SVG */}
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            className='h-6 w-6'
-            fill='currentColor'
-            viewBox='0 0 24 24'
-          >
-            <path d='M20.15 3h-3.25l-4.47 6.17L8.35 3H2.5l6.87 9.62L2.15 21h3.25l4.98-6.87L15.65 21h5.85l-7.21-10.05L20.15 3z' />
-          </svg>
-        </a>
-
-        <a
-          href='mailto:shaurya.y321@gmail.com'
-          className='text-gray-600 dark:text-gray-400 hover:text-primary transition'
-          aria-label='Email'
-        >
-          {/* Email SVG */}
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            className='h-6 w-6'
-            fill='currentColor'
-            viewBox='0 0 24 24'
-          >
-            <path d='M2.25 4.5A2.25 2.25 0 0 1 4.5 2.25h15a2.25 2.25 0 0 1 2.25 2.25v15a2.25 2.25 0 0 1-2.25 2.25h-15A2.25 2.25 0 0 1 2.25 19.5v-15zM4.5 6.41v12.09h15V6.41l-7.5 4.7-7.5-4.7zm7.5 3.69L19.5 4.5h-15l7.5 5.6z' />
-          </svg>
-        </a>
-      </div>
+    <div className='mx-auto grid max-w-5xl gap-12 lg:grid-cols-[0.8fr_1.2fr]'>
+      <div><p className='eyebrow mb-3'>Start a conversation</p><h1 className='text-5xl font-black tracking-tight'>Have a good problem?</h1><p className='mt-6 text-lg leading-relaxed text-[var(--muted)]'>Whether you are building something new, improving an existing system, or just want to say hello, I’d love to hear from you.</p><div className='mt-8 flex gap-5 text-[var(--muted)]'><a href={siteConfig.links.github} target='_blank' rel='noreferrer' aria-label='GitHub' className='hover:text-primary-dark'><FiGithub className='h-5 w-5' /></a><a href={siteConfig.linkedin} target='_blank' rel='noreferrer' aria-label='LinkedIn' className='hover:text-primary-dark'><FiLinkedin className='h-5 w-5' /></a><a href={`mailto:${siteConfig.email}`} aria-label='Email' className='hover:text-primary-dark'><FiMail className='h-5 w-5' /></a></div></div>
+      <form className='surface space-y-5 p-6 sm:p-8' onSubmit={handleSubmit}><div><label htmlFor='name' className='mb-2 block text-sm font-bold'>Name</label><input id='name' type='text' name='name' value={form.name} onChange={(event) => setForm({ ...form, name: event.target.value })} placeholder='Your name' required className='w-full rounded-lg border border-[var(--line)] bg-transparent px-4 py-3 text-[var(--foreground)] placeholder:text-[var(--muted)]' /></div><div><label htmlFor='email' className='mb-2 block text-sm font-bold'>Email</label><input id='email' type='email' name='email' value={form.email} onChange={(event) => setForm({ ...form, email: event.target.value })} placeholder='you@example.com' required className='w-full rounded-lg border border-[var(--line)] bg-transparent px-4 py-3 text-[var(--foreground)] placeholder:text-[var(--muted)]' /></div><div><label htmlFor='message' className='mb-2 block text-sm font-bold'>Message</label><textarea id='message' name='message' value={form.message} onChange={(event) => setForm({ ...form, message: event.target.value })} placeholder='Tell me a little about what you are working on...' rows={6} required className='w-full resize-y rounded-lg border border-[var(--line)] bg-transparent px-4 py-3 text-[var(--foreground)] placeholder:text-[var(--muted)]' /></div><button type='submit' disabled={sending} className='rounded-full bg-primary px-6 py-3 text-sm font-black text-black hover:bg-primary-dark disabled:cursor-not-allowed disabled:opacity-60'>{sending ? "Sending…" : "Send message"}</button><p className='text-xs text-[var(--muted)]'>Having trouble? Email me directly at {siteConfig.email}.</p></form>
     </div>
   );
 }

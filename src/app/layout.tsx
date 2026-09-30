@@ -8,8 +8,8 @@ import { ThemeProvider } from "next-themes";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "shaurya.space",
-  description: "Building real-world web apps with modern tech stack",
+  title: "Shaurya Yadav — Full-stack developer",
+  description: "A portfolio of thoughtful products, experiments, and open-source work.",
 };
 
 export default function RootLayout({
@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
           <Navbar />
-          <main className='min-h-screen px-6 sm:px-12 pt-24'>{children}</main>
+          <main className='min-h-screen px-5 sm:px-8 pt-28'>{children}</main>
           <Footer />
           <Toaster richColors position='top-center' /> {/* ✅ Add this line */}
         </ThemeProvider>
