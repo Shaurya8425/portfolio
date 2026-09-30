@@ -16,7 +16,8 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className='px-4 py-2 rounded-lg bg-card border border-border'
+      aria-label='Toggle color theme'
+      className='ml-2 rounded-full border border-[var(--line)] px-3 py-2 text-xs font-bold'
     >
       {isDark ? "🌙 Dark" : "☀️ Light"}
     </button>

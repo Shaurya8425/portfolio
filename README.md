@@ -16,6 +16,20 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+### Contact form
+
+The contact form posts to the server-side `/api/contact` route and sends through
+EmailJS. Deployment-specific values can override the current configuration with:
+
+```env
+EMAILJS_SERVICE_ID=your_service_id
+EMAILJS_TEMPLATE_ID=your_template_id
+EMAILJS_PUBLIC_KEY=your_public_key
+```
+
+The EmailJS template should use one or more of these variables:
+`name`, `from_name`, `email`, `from_email`, `reply_to`, and `message`.
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.

@@ -1,8 +1,8 @@
 @import "tailwindcss";
 @variant dark (&:where(.dark, .dark *));
 @theme {
-  --color-primary: #6366f1;
-  --color-primary-dark: #4f46e5;
+  --color-primary: #b8ff5a;
+  --color-primary-dark: #47751b;
 }
 @import "prismjs/themes/prism-tomorrow.css";
 .prose pre {
@@ -11,17 +11,128 @@
 .prose code {
   @apply text-sm;
 }
-* {
-  @apply transition-colors duration-200;
+
+.prose {
+  color: var(--foreground);
+  font-size: 1.05rem;
+  line-height: 1.85;
+}
+
+.prose h2,
+.prose h3 {
+  color: var(--foreground);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.prose h2 {
+  margin-top: 2.5rem;
+  margin-bottom: 0.85rem;
+  font-size: 1.7rem;
+}
+
+.prose h3 {
+  margin-top: 2rem;
+  margin-bottom: 0.65rem;
+  font-size: 1.3rem;
+}
+
+.prose p,
+.prose li {
+  color: color-mix(in srgb, var(--foreground) 84%, var(--muted));
+}
+
+.prose strong {
+  color: var(--foreground);
+  font-weight: 800;
+}
+
+.prose a {
+  color: #47751b;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.dark .prose a {
+  color: #b8ff5a;
+}
+
+.prose ul {
+  margin: 1rem 0;
+  padding-left: 1.4rem;
+  list-style: disc;
+}
+
+.prose hr {
+  border-color: var(--line);
+  margin: 2.5rem 0;
+}
+
+.prose blockquote {
+  border-left: 3px solid #47751b;
+  color: var(--muted);
+  margin: 1.5rem 0;
+  padding-left: 1rem;
 }
 :root {
-  --background: 255 255 255;
-  --foreground: 15 23 42;
-  --card: 245 245 245;
+  --background: #f5f3ee;
+  --foreground: #111513;
+  --card: #ffffff;
+  --muted: #69736e;
+  --line: #d9ded8;
 }
 
 .dark {
-  --background: 15 23 42;
-  --foreground: 255 255 255;
-  --card: 30 41 59;
+  --background: #101412;
+  --foreground: #f5f3ee;
+  --card: #18201c;
+  --muted: #aab5ae;
+  --line: #2a3730;
+}
+
+button,
+a,
+input,
+textarea {
+  outline-color: #47751b;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  background-image: radial-gradient(circle at 15% 10%, rgba(184, 255, 90, 0.12), transparent 25rem);
+}
+
+::selection {
+  background: #b8ff5a;
+  color: #111513;
+}
+
+.eyebrow {
+  color: #617068;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.dark .eyebrow {
+  color: #b5c2ba;
+}
+
+.surface {
+  background: color-mix(in srgb, var(--card) 88%, transparent);
+  border: 1px solid var(--line);
+  border-radius: 1.25rem;
+}
+
+.grid-paper {
+  background-image: linear-gradient(to right, rgba(86, 103, 94, 0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(86, 103, 94, 0.08) 1px, transparent 1px);
+  background-size: 2.4rem 2.4rem;
 }

@@ -17,15 +17,16 @@ export default async function BlogPostPage({
   const blog = await getBlogBySlug(slug);
 
   return (
-    <div className='max-w-2xl mx-auto'>
-      <h1 className='text-3xl font-bold text-primary mb-2'>{blog.title}</h1>
-      <p className='text-sm text-gray-500 dark:text-gray-400 mb-6'>
+    <article className='mx-auto max-w-3xl'>
+      <p className='eyebrow mb-4'>Build log</p>
+      <h1 className='text-4xl font-black tracking-tight sm:text-6xl'>{blog.title}</h1>
+      <p className='mt-4 text-sm font-bold uppercase tracking-wider text-[var(--muted)]'>
         {new Date(blog.date).toLocaleDateString()}
       </p>
       <div
-        className='prose'
+        className='prose mt-12 max-w-none'
         dangerouslySetInnerHTML={{ __html: blog.contentHtml }}
       />
-    </div>
+    </article>
   );
 }
