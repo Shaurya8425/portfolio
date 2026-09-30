@@ -1,6 +1,8 @@
 
 import ContributionGraph from "./ContributionGraph";
 import { getGitHubStats } from "../actions/getGitHubStats";
+import { getGitHubContributions } from "../actions/getGitHubContributions";
+import { headers } from "next/headers";
 
 /* component */
 const StatCard = ({
@@ -25,7 +27,13 @@ const StatCard = ({
 );
 
 async function page() {
-  const githubStats = await getGitHubStats();
+  const requestHeaders = await headers();
+  const forceRefresh = requestHeaders.get("cache-control")?.includes("no-cache") ||
+    requestHeaders.get("pragma") === "no-cache";
+  const [githubStats, contributions] = await Promise.all([
+    getGitHubStats(forceRefresh),
+    getGitHubContributions(forceRefresh),
+  ]);
 
   const pickGithubStats = [
     {
@@ -48,7 +56,7 @@ async function page() {
   return (
     <div className='mx-auto max-w-6xl'>
       <div className='mb-10'><p className='eyebrow mb-3'>Behind the scenes</p><h1 className='text-5xl font-black tracking-tight'>A quick glance.</h1><p className='mt-3 max-w-xl text-lg text-[var(--muted)]'>A live snapshot of my open-source activity and the numbers behind it.</p></div>
-      <ContributionGraph />
+      <ContributionGraph initialContributions={contributions} />
 
       <div className='mb-8 mt-2'>
         <div className='grid grid-cols-1 gap-4 card-container md:grid-cols-2'>
