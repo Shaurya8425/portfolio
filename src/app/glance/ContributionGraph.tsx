@@ -6,18 +6,18 @@ import type { Contribution } from "../actions/getGitHubContributions";
 const colors = ["bg-black/5 dark:bg-white/10", "bg-[#d5f6aa]", "bg-[#a9e96f]", "bg-[#65c936]", "bg-[#2c8c2a]"];
 const futureColor = "border border-[var(--line)] bg-transparent";
 const monthColors = [
-  "#ef4444",
-  "#f97316",
-  "#eab308",
-  "#84cc16",
-  "#22c55e",
-  "#14b8a6",
-  "#06b6d4",
-  "#3b82f6",
-  "#6366f1",
-  "#8b5cf6",
-  "#d946ef",
-  "#f43f5e",
+  "color-mix(in srgb, #47751b 22%, var(--foreground))",
+  "color-mix(in srgb, #47751b 28%, var(--foreground))",
+  "color-mix(in srgb, #47751b 34%, var(--foreground))",
+  "color-mix(in srgb, #47751b 40%, var(--foreground))",
+  "color-mix(in srgb, #47751b 46%, var(--foreground))",
+  "color-mix(in srgb, #47751b 52%, var(--foreground))",
+  "color-mix(in srgb, #47751b 58%, var(--foreground))",
+  "color-mix(in srgb, #47751b 64%, var(--foreground))",
+  "color-mix(in srgb, #47751b 70%, var(--foreground))",
+  "color-mix(in srgb, #47751b 76%, var(--foreground))",
+  "color-mix(in srgb, #47751b 82%, var(--foreground))",
+  "color-mix(in srgb, #47751b 88%, var(--foreground))",
 ];
 let cachedContributions: Contribution[] | null = null;
 
