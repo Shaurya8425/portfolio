@@ -4,12 +4,37 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { Toaster } from "sonner"; // ✅ import Toaster
 import { ThemeProvider } from "next-themes";
+import type { Metadata } from "next";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata = {
+export const metadata: Metadata = {
+  metadataBase: new URL("https://byshaurya.com"),
   title: "Shaurya Yadav — Full-stack developer",
   description: "A portfolio of thoughtful products, experiments, and open-source work.",
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-icon.png",
+  },
+  openGraph: {
+    title: "Shaurya Yadav — Full-stack developer",
+    description: "A portfolio of thoughtful products, experiments, and open-source work.",
+    url: "https://byshaurya.com",
+    siteName: "byshaurya.com",
+    type: "website",
+    images: [
+      {
+        url: "/icon.png",
+        alt: "Shaurya Yadav logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary",
+    title: "Shaurya Yadav — Full-stack developer",
+    description: "A portfolio of thoughtful products, experiments, and open-source work.",
+    images: ["/icon.png"],
+  },
 };
 
 export default function RootLayout({
